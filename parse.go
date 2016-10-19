@@ -15,6 +15,7 @@ import (
 var (
 	pupIn            io.ReadCloser = os.Stdin
 	pupCharset       string        = ""
+	pupInvertMatch   bool          = false
 	pupMaxPrintLevel int           = -1
 	pupPreformatted  bool          = false
 	pupPrintColor    bool          = false
@@ -56,6 +57,7 @@ Flags
     -n --number        print number of elements selected
     -l --limit         restrict number of levels printed
     -p --plain         don't escape html
+    -v --invert-match  TODO explain
     --pre              preserve preformatted text
     --charset          specify the charset for pup to use
     --version          display version
@@ -117,6 +119,9 @@ func ProcessFlags(cmds []string) (nonFlagCmds []string, err error) {
 			i++
 		case "--charset":
 			pupCharset = cmds[i+1]
+			i++
+		case "-v", "--invert-match":
+			pupInvertMatch = true
 			i++
 		case "--version":
 			fmt.Println(VERSION)
